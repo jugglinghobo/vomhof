@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+  <div class="col-12">
+    <h3>Unser Betrieb</h3>
+  </div>
+
+  <div class="col-md-6 col-xs-12">
+    <ul>
+      <li>
+      <p>Unser Betrieb liegt 1 km ausserhalb von Kirchberg BE Richtung Utzenstorf.</p>
+      </li>
+      <li>
+        <p>Wir sind Mastbetrieb mit 100 Kälber für <a href="http://www.gefu-oberle.ch/home.html", target="_blank">GEFU</a>.</p>
+      </li>
+      <li>
+        <p>Kaninchenzuchtbetrieb mit 130 Muttertieren für <a href="http://www.schweizerkaninchen.ch/" target="_blank">Kani Swiss</a>.</p>
+      </li>
+      <li>
+        <p>Hühner zur Selbstversorgung.</p>
+      </li>
+    </ul>
+    </p>
+  </div>
+
+  <div class="col-md-6 col-xs-12">
+    {% include 'vomhof/slideshow.html.twig' %}
+  </div>
+</div>
+{% endblock %}

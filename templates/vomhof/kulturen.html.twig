@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+  <div class="col-12">
+    <h3>Kulturen</h3>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <ul>
+      <li><p>Kartoffeln für Saatgut</p></li>
+      <li><p>Getreide für Saatgut</p></li>
+      <li><p>Zuckerrüben</p></li>
+      <li><p>Mais</p></li>
+      <li><p>Raps</p></li>
+      <li><p>Kunstwiese</p></li>
+    </ul>
+  </div>
+
+  <div class="col-md-6 col-xs-12">
+    {% include 'vomhof/slideshow.html.twig' %}
+  </div>
+</div>
+{% endblock %}

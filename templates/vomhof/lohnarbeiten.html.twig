@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+  <div class="col-12">
+    <h3>Lohnarbeiten</h3>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <ul>
+      <li>
+        <p>Kalk Lager für Landor</p>
+      </li>
+      <li>
+        <p>Kalkstroh mischen</p>
+      </li>
+      <li>
+        <p>Streuer zum Kalk ausbringen</p>
+      </li>
+      <li>
+        <p>Kartoffel graben mit WM vom Maschinenring Ersigen</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-6 col-xs-12">
+    {% include 'vomhof/slideshow.html.twig' %}
+  </div>
+</div>
+{% endblock %}
