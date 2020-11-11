@@ -1,4 +1,5 @@
 .DS_Store
+.env
 
 ###> symfony/framework-bundle ###
 /.env.local
