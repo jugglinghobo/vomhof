@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-9">
+      <h3>
+        Verpackungsmaterial "Vom Hof"
+        <small>
+          <a href="https://www.vomhof.ch", target="_blank">www.VomHof.ch</a>
+        </small>
+      </h3>
+    </div>
+    <div class="col-3">
+      <div class="float-right">
+        <a href="{{ url("formular") }}" target="_blank" class="btn btn-primary">Bestellformular herunterladen</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      Keine festen Öffnungszeiten! Bitte kontaktieren Sie uns, um vorher einen Termin zu vereinbaren.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      Telefon: <a href="tel:+41 34 445 53 89">034 445 53 89</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      Handy: <a href="tel:+41 79 583 77 55">079 583 77 55</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <!-- TODO: FIX EMAIL! -->
+      Email: <a href="mailto:fam_luethi@hotmail.com">fam_luethi@hotmail.com</a>
+    </div>
+  </div>
+
+  <div class="spacer">
+  </div>
+
+  <div class="row justify-content-center">
+      <h4>
+        {% for category in productCategories %}
+          <a href="#{{ category['id'] }}" class="btn btn-primary">{{ category['name'] }}</a>
+        {% endfor %}
+      </h4>
+    </div>
+  </div>
+
+
+  {% for category in productCategories %}
+    <div class="category">
+      <div class="row">
+        <div class="col">
+          <h4 id="{{ category['id'] }}">{{ category['name'] }}</h4>
+        </div>
+      </div>
+      <div class="row">
+        {% for product in category['products'] %}
+          <div class="product col-lg-3 col-sm-4 col-xs-12">
+            <div class="product-information">
+              <div class="product-photo">
+                {% set imgPath = asset("images/products/" ~ category['path'] ~ '/' ~ product['img']) %}
+                <img src="{{ imgPath }}" class="img img-fluid" data-toggle="modal", data-target="#lightbox" data-title="{{ product['name'] }}">
+              </div>
+              <div class="product-name text-center">
+                <strong>{{ product['name'] }}</strong>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="modal" id="lightbox" tabindex="-1">
+    <div class="modal-dialog modal-dialog-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div id="modal-title">
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="" id="modal-image" class="img img-fluid center-block" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
