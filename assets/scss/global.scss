@@ -1,16 +1,12 @@
 // customize some Bootstrap variables
-// $primary: darken(#428bca, 20%);
+
+$primary: lighten(#264225, 0.4);
 
 // the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/bootstrap";
-// @import "variables";
 
-// @import "bootstrap";
-// @import "bootstrap/variables";
-// @import "products";
-// @import "orders";
-
-$brand-primary: rgb(66, 115, 64);
 $margin-top: 0;
 $xs-logo-height: 30px;
 $md-logo-height: 60px;
@@ -30,14 +26,19 @@ body {
 }
 
 .navbar {
+
+  .navbar-brand {
+    color: $primary;
+  }
+
   .container-fluid > .navbar-brand {
     margin-left: 0;
   }
 
-  #navbar li {
-    font-size: 16px;
 
-    a {
+  .nav-item {
+    .nav-link {
+      color: $primary;
       padding-left: 11px;
       padding-right: 11px;
     }
