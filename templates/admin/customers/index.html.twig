@@ -1,0 +1,96 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+  <div class="row justify-content-between">
+    <div class="col-3">
+      <h2>{{ 'models.customer.modelName.plural'|trans}} ({{ pagination.getTotalItemCount }})</h2>
+    </div>
+    <div class="col-5">
+      <form action="customers" method="GET">
+        <div class="row">
+          <div class="col-10">
+
+            <div class="input-group">
+              <input type="text" name="q" id="q" value="{{lastQuery}}" placeholder="{{ 'actions.search'|trans }}" class="form-control">
+              {% if lastQuery %}
+                <div class="input-group-append">
+                  <a href="{{ path('customers') }}" class="btn btn-outline-danger">{{ 'actions.showAll'|trans }}</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-2">
+
+            <button type="submit" class="btn btn-warning">{{ 'actions.search'|trans }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-4">
+      <div class="float-right">
+        <a href="{{ path("create_customer") }}" class="btn btn-success">{{ 'actions.create'|trans({ modelName: 'models.customer.modelName.singular'|trans }) }}</a>
+      </div>
+    </div>
+  </div>
+
+  <table id=list class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th class="header {% if pagination.isSorted('customer.company')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.attributes.company'|trans, 'customer.company') }}
+        </th>
+        <th class="header {% if pagination.isSorted(['customer.lastName', 'customer.firstName'])%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.name'|trans, ['customer.lastName', 'customer.firstName']) }}
+        </th>
+        <th class="header {% if pagination.isSorted(['customer.address1', 'customer.address2'])%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.attributes.address1'|trans, ['customer.address1', 'customer.address2']) }}
+        </th>
+        <th class="header {% if pagination.isSorted('customer.zipCode')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.attributes.zipCode'|trans, 'customer.zipCode') }}
+        </th>
+        <th class="header {% if pagination.isSorted('customer.city')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.attributes.city'|trans, 'customer.city') }}
+        </th>
+        <th class="header {% if pagination.isSorted('customer.phone')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.attributes.phone'|trans, 'customer.phone') }}
+        </th>
+        <th class="header {% if pagination.isSorted('customer.email')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.attributes.email'|trans, 'customer.email') }}
+        </th>
+        <th class="header {% if pagination.isSorted('customer.updatedAt')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.attributes.updatedAt'|trans, 'customer.updatedAt') }}
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for customer in pagination %}
+        <tr class='list-row'>
+          <td class='list-column'>{{ customer.company }}</td>
+          <td class='list-column'><a href="{{ path('edit_customer', { 'id': customer.id })}}">{{ customer.lastName ~ ' ' ~ customer.firstName }}</a></td>
+          <td class='list-column'>{{ customer.address1 ~ customer.address2 }}</td>
+          <td class='list-column'>{{ customer.zipCode }}</td>
+          <td class='list-column'>{{ customer.city }}</td>
+          <td class='list-column'>{{ customer.phone }}</td>
+          <td class='list-column'>
+            {% if customer.email %}
+              <a href="mailto:{{ customer.email }}">{{ customer.email }}</a>
+            {% endif %}
+          </td>
+          <td class='list-column'>{{ customer.updatedAt|format_datetime('medium', 'short') }}</td>
+          <td class='list-column'>
+            <form action="{{ path('delete_customer', {"id": customer.id}) }}" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger">{{ 'actions.delete'|trans }}</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+{% endblock %}

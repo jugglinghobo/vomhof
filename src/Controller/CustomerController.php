@@ -9,19 +9,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
 
-use App\Form\ProductType;
-use App\Entity\Product;
+use App\Form\CustomerType;
+use App\Entity\Customer;
 
 /**
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
-class ProductController extends AbstractController {
+class CustomerController extends AbstractController {
 
   /**
-   * @Route("/admin/products", name="products", methods="GET")
+   * @Route("/admin/customers", name="customers", methods="GET")
    */
   public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request) {
-    $repository = $entityManager->getRepository(Product::class);
+    $repository = $entityManager->getRepository(Customer::class);
 
     $q = $request->query->get('q');
     $queryBuilder = $repository->getWithSearchQueryBuilder($q);
@@ -32,65 +32,66 @@ class ProductController extends AbstractController {
       10 /*limit per page*/
     );
 
-    return $this->render("admin/products/index.html.twig", [
+    return $this->render("admin/customers/index.html.twig", [
       "pagination" => $pagination,
       "lastQuery" => $q
     ]);
   }
 
   /**
-   * @Route("/admin/products/new", name="create_product", methods={"GET", "POST"})
+   * @Route("/admin/customers/new", name="create_customer", methods={"GET", "POST"})
    */
   public function new(Request $request) {
-    $product = new Product();
+    $customer = new Customer();
 
-    $form = $this->createForm(ProductType::class, $product);
-
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-      return $this->handleFormSuccess($form);
-    }
-
-    return $this->render("admin/products/new.html.twig", [
-      "form" => $form->createView()
-    ]);
-  }
-
-  /**
-   * @Route("/admin/products/{id}", name="edit_product", requirements={"id":"\d+"}, methods={"GET", "POST"})
-   */
-  public function edit(Product $product, Request $request) {
-    $form = $this->createForm(ProductType::class, $product);
+    $form = $this->createForm(CustomerType::class, $customer);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       return $this->handleFormSuccess($form);
     }
 
-    return $this->render("admin/products/edit.html.twig", [
+    return $this->render("admin/customers/new.html.twig", [
       "form" => $form->createView()
     ]);
   }
 
   /**
-   * @Route("/admin/products/{id}", name="delete_product", requirements={"id":"\d+"}, methods="DELETE")
+   * @Route("/admin/customers/{id}", name="edit_customer", requirements={"id":"\d+"}, methods={"GET", "POST"})
    */
-  public function delete(Product $product) {
+  public function edit(Customer $customer, Request $request) {
+    $form = $this->createForm(CustomerType::class, $customer);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+      return $this->handleFormSuccess($form);
+    }
+
+    return $this->render("admin/customers/edit.html.twig", [
+      "form" => $form->createView()
+    ]);
+  }
+
+  /**
+   * @Route("/admin/customers/{id}", name="delete_customer", requirements={"id":"\d+"}, methods="DELETE")
+   */
+  public function delete(Customer $customer) {
     $entityManager = $this->getDoctrine()->getManager();
-    $entityManager->remove($product);
+    $entityManager->remove($customer);
     $entityManager->flush();
 
-    return $this->redirectToRoute("products");
+    return $this->redirectToRoute("customers");
   }
 
   private function handleFormSuccess($form) {
-    $product = $form->getData();
+    $customer = $form->getData();
 
     $entityManager = $this->getDoctrine()->getManager();
-    $entityManager->persist($product);
+    $entityManager->persist($customer);
     $entityManager->flush();
 
-    return $this->redirectToRoute('products');
+    return $this->redirectToRoute('customers');
   }
 }
+
 

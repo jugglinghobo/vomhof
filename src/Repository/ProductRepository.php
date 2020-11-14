@@ -15,32 +15,29 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Product::class);
-    }
+  public function __construct(ManagerRegistry $registry) {
+    parent::__construct($registry, Product::class);
+  }
 
-    public function findAll()
-    {
-      return $this->findBy([], ['name' => 'ASC']);
-    }
+  public function findAll() {
+    return $this->findBy([], ['name' => 'ASC']);
+  }
 
-    public function getWithSearchQueryBuilder(?string $term): QueryBuilder
-    {
-      $qb = $this->createQueryBuilder('product');
-      if ($term) {
-        $qb->andWhere('LOWER(product.identifier) LIKE :term OR LOWER(product.name) LIKE :term')
-           ->setParameter('term', '%' . $term . '%')
-         ;
-      }
-      return $qb
-        ->orderBy('product.name', 'ASC')
-      ;
+  public function getWithSearchQueryBuilder(?string $term): QueryBuilder {
+    $qb = $this->createQueryBuilder('product');
+    if ($term) {
+      $qb->andWhere('LOWER(product.identifier) LIKE :term OR LOWER(product.name) LIKE :term')
+         ->setParameter('term', '%' . $term . '%')
+       ;
     }
+    return $qb
+      ->orderBy('product.name', 'ASC')
+    ;
+  }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
+  // /**
+  //  * @return Product[] Returns an array of Product objects
+  //  */
     /*
     public function findByExampleField($value)
     {
@@ -53,7 +50,7 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+     */
 
     /*
     public function findOneBySomeField($value): ?Product
@@ -65,5 +62,5 @@ class ProductRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+     */
 }

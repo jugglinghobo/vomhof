@@ -3,7 +3,7 @@
 {% block body %}
   <div class="row justify-content-between">
     <div class="col-3">
-      <h2>Produkte ({{ pagination.getTotalItemCount }})</h2>
+      <h2>{{ 'models.product.modelName.plural'|trans }} ({{ pagination.getTotalItemCount }})</h2>
     </div>
     <div class="col-5">
       <form action="products" method="GET">
@@ -28,7 +28,7 @@
     </div>
     <div class="col-4">
       <div class="float-right">
-        <a href="{{ path("create_product") }}" class="btn btn-success">Neues Produkt erfassen</a>
+        <a href="{{ path("create_product") }}" class="btn btn-success">{{ 'actions.create'|trans({ 'modelName': 'models.product.modelName.singular'|trans }) }}</a>
       </div>
     </div>
   </div>
