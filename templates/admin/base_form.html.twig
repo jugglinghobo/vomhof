@@ -1,0 +1,14 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+  <h2>
+    {% block header %}{% endblock %}
+  </h2>
+  <div class="row">
+    <div class="col-4 col-sm-6 col-xs-12">
+      {% block form %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
+

@@ -1,0 +1,6 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+  {{ product.name }}
+  {{ product.price|format_currency("CHF") }}
+{% endblock %}

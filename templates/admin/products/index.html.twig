@@ -1,0 +1,83 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+  <div class="row justify-content-between">
+    <div class="col-3">
+      <h2>Produkte ({{ pagination.getTotalItemCount }})</h2>
+    </div>
+    <div class="col-5">
+      <form action="products" method="GET">
+        <div class="row">
+          <div class="col-10">
+
+            <div class="input-group">
+              <input type="text" name="q" id="q" value="{{lastQuery}}" placeholder="{{ 'actions.search'|trans }}" class="form-control">
+              {% if lastQuery %}
+                <div class="input-group-append">
+                  <a href="{{ path('products') }}" class="btn btn-outline-danger">{{ 'actions.showAll'|trans }}</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-2">
+
+            <button type="submit" class="btn btn-warning">{{ 'actions.search'|trans }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-4">
+      <div class="float-right">
+        <a href="{{ path("create_product") }}" class="btn btn-success">Neues Produkt erfassen</a>
+      </div>
+    </div>
+  </div>
+
+  <table id=list class="table table-hover table-condensed">
+    <thead>
+      <tr>
+
+        <th class="header {% if pagination.isSorted('product.identifier')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.product.attributes.identifier'|trans, 'product.identifier') }}
+        </th>
+        <th class="header {% if pagination.isSorted('product.name')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.product.attributes.name'|trans, 'product.name') }}
+        </th>
+        <th class="header text-right {% if pagination.isSorted('product.price') %}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.product.attributes.price'|trans, 'product.price') }}
+        </th>
+        <th></th>
+        <th class="header {% if pagination.isSorted('product.updatedAt')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.product.attributes.updatedAt'|trans, 'product.updatedAt') }}
+        </th>
+        <th></th>
+
+        <!-- <th class="header list-row-action-header"> -->
+        <!--   <%= link_to "Liste ausdrucken", url_for(:products, :index, letter: params[:letter], format: :pdf), class: 'btn btn-primary pull-right', target: :blank %> -->
+        <!-- </th> -->
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for product in pagination %}
+        <tr class='list-row'>
+          <td class='list-column'>{{ product.identifier }}</td>
+          <td class='list-column'><a href="{{ path('edit_product', { id: product.id }) }}">{{ product.name }}</a></td>
+          <td class='list-column text-right'>{{ product.price|format_currency("CHF")}}</td>
+          <td></td>
+          <td class='list-column'>{{ product.updatedAt|format_datetime('medium', 'short') }}</td>
+          <td class='list-column'>
+            <form action="{{ path('delete_product', {"id": product.id}) }}" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger">{{ 'actions.delete'|trans }}</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+{% endblock %}

@@ -4,107 +4,80 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class Product
-{
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+class Product {
+
+  use TimestampableEntity;
+
+  /**
+   * @ORM\Id
+   * @ORM\GeneratedValue
+   * @ORM\Column(type="integer")
+   */
+  private $id;
 
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    private $identifier;
+  /**
+   * @ORM\Column(type="string", length=255, unique=true)
+   * @Assert\NotBlank
+   */
+  private $identifier;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+  /**
+   * @ORM\Column(type="string", length=255)
+   * @Assert\NotBlank
+   */
+  private $name;
 
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
+  /**
+   * @ORM\Column(type="float")
+   * @Assert\NotBlank
+   */
+  private $price;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
+  public function getName(): ?string
+  {
+    return $this->name;
+  }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  public function setName(string $name): self
+  {
+    $this->name = $name;
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+    return $this;
+  }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
+  public function getPrice(): ?float
+  {
+    return $this->price;
+  }
 
-        return $this;
-    }
+  public function setPrice(float $price): self
+  {
+    $this->price = $price;
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
+    return $this;
+  }
 
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
+  public function getIdentifier(): ?string
+  {
+    return $this->identifier;
+  }
 
-        return $this;
-    }
+  public function setIdentifier(string $identifier): self
+  {
+    $this->identifier = $identifier;
 
-    public function getIdentifier(): ?string
-    {
-        return $this->identifier;
-    }
-
-    public function setIdentifier(string $identifier): self
-    {
-        $this->identifier = $identifier;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
+    return $this;
+  }
 }

@@ -1,0 +1,15 @@
+actions:
+  save: Speichern
+  delete: Löschen
+  search: Suchen
+  showAll: Alle Anzeigen
+models:
+  product:
+    name: Produkt
+    attributes:
+      id: ID
+      identifier: Nummer
+      name: Name
+      price: Preis
+      createdAt: Erstellt Am
+      updatedAt: Geändert Am
