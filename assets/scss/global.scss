@@ -113,6 +113,11 @@ img[data-toggle='modal'] {
   background-repeat: no-repeat;
 }
 
+.result-container {
+  z-index: 200;
+  background-color: #cccccc;
+}
+
 @media (min-width: var(--breakpoint-xs)) {
   .logo-container {
     max-height: $md-logo-height;

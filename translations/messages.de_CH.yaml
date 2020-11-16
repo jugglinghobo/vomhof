@@ -1,0 +1,79 @@
+actions:
+  all: Alle
+  create: modelName erstellen
+  edit: modelName bearbeiten
+  save: Speichern
+  cancel: Abbrechen
+  delete: Löschen
+  search: Suchen
+  showAll: Alle Anzeigen
+  completeInvoice: Rechnung abschliessen
+models:
+  product:
+    modelName:
+      singular: Produkt
+      plural: Produkte
+    attributes:
+      id: ID
+      identifier: Nummer
+      name: Name
+      price: Preis
+      createdAt: Erstellt Am
+      updatedAt: Geändert Am
+  customer:
+    name: Name
+    modelName:
+      singular: Kunde
+      plural: Kunden
+    attributes:
+      id: ID
+      firstName: Vorname
+      lastName: Nachname
+      company: Firma
+      address1: Adresse
+      address2: Zusatz
+      zipCode: PLZ
+      city: Ort
+      phone: Telefon
+      email: Email
+      paysCash: Barzahlung
+      pickUp: Abholen
+      createdAt: Erstellt Am
+      updatedAt: Geändert Am
+  invoice:
+    modelName:
+      singular: Rechnung
+      plural: Rechnungen
+    attributes:
+      id: ID
+      firstName: Vorname
+      lastName: Nachname
+      company: Firma
+      address1: Adresse
+      address2: Zusatz
+      zipCode: PLZ
+      city: Ort
+      phone: Telefon
+      email: Email
+      paidCash: Barzahlung
+      cashDiscount: Barzahlungsrabatt %cashDiscountPercentage%
+      bulkDiscount: Mengenrabatt %bulkDiscountPercentage%
+      bulkDiscountThreshold: Grenze Mengenrabatt
+      springDiscount: Frühlingsrabatt %springDiscountPercentage%
+      vatPercentage: Prozent MwSt.
+      vatAmount: MwSt. %vatPercentage%
+      shippingCost: Versandkosten
+      createdAt: Erstellt Am
+      updatedAt: Geändert Am
+view:
+  invoices:
+    form:
+      orderQuantity: Bestellmenge
+      price: Preis currency
+      totalPrice: Total currency
+      bulkDiscount: Mengenrabatt ab
+      springDiscount: Frühlingsrabatt
+      vat: MwSt.
+      total_without_vat: Total exkl. MwSt.
+      subtotal: Zwischentotal
+      total: Total

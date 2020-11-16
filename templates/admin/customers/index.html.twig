@@ -33,6 +33,18 @@
     </div>
   </div>
 
+  <ul class="pagination">
+    <li class="page-item {% if lastLetter is empty %}active{% endif %}">
+      <a href="{{path('customers') }}" class="page-link">{{ 'actions.all'|trans }}</a>
+    </li>
+    {% set alphabet = ['A', 'Ä']|merge('B'..'O')|merge(['Ö'])|merge('P'..'U')|merge(['Ü'])|merge('V'..'Z') %}
+    {% for letter in alphabet %}
+      <li class="page-item {% if letter == lastLetter %}active{% endif %}">
+        <a href="{{path('customers', { 'letter': letter }) }}" class="page-link">{{ letter }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
   <table id=list class="table table-hover table-condensed">
     <thead>
       <tr>

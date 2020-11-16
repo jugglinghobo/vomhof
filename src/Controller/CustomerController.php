@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 use App\Form\CustomerType;
 use App\Entity\Customer;
@@ -23,8 +27,14 @@ class CustomerController extends AbstractController {
   public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request) {
     $repository = $entityManager->getRepository(Customer::class);
 
+
     $q = $request->query->get('q');
-    $queryBuilder = $repository->getWithSearchQueryBuilder($q);
+    $letter = $request->query->get('letter');
+    if ($q) {
+      $queryBuilder = $repository->getWithSearchQueryBuilder($q);
+    } else {
+      $queryBuilder = $repository->getWithFirstLetterQueryBuilder($letter);
+    }
 
     $pagination = $paginator->paginate(
       $queryBuilder, /* query NOT result */
@@ -34,8 +44,28 @@ class CustomerController extends AbstractController {
 
     return $this->render("admin/customers/index.html.twig", [
       "pagination" => $pagination,
-      "lastQuery" => $q
+      "lastQuery" => $q,
+      "lastLetter" => $letter
     ]);
+  }
+
+  /**
+   * @Route("/admin/customers/search", name="customer_search", methods="GET")
+   */
+  public function search(EntityManagerInterface $entityManager, Request $request) {
+    $repository = $entityManager->getRepository(Customer::class);
+    $q = $request->query->get('q');
+    $queryBuilder = $repository->getWithSearchQueryBuilder($q);
+    $customers = $queryBuilder->getQuery()->getResult();
+
+    $encoders = [new JsonEncoder()];
+    $normalizers = [new ObjectNormalizer()];
+    $serializer = new Serializer($normalizers, $encoders);
+    $jsonCustomers = $serializer->serialize($customers, 'json');
+
+    $response = new JsonResponse();
+    $response->setData($jsonCustomers);
+    return $response;
   }
 
   /**

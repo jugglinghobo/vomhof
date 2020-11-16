@@ -1,0 +1,86 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+  <div class="row justify-content-between">
+    <div class="col-3">
+      <h2>{{ 'models.invoice.modelName.plural'|trans}} ({{ pagination.getTotalItemCount }})</h2>
+    </div>
+    <div class="col-5">
+      <form action="invoices" method="GET">
+        <div class="row">
+          <div class="col-10">
+
+            {#
+            <div class="input-group">
+              <input type="text" name="q" id="q" value="{{selectedYear}}" placeholder="{{ 'actions.search'|trans }}" class="form-control">
+              {% if lastQuery %}
+                <div class="input-group-append">
+                  <a href="{{ path('invoices') }}" class="btn btn-outline-danger">{{ 'actions.showAll'|trans }}</a>
+                </div>
+              {% endif %}
+            </div>
+            #}
+
+          </div>
+          <div class="col-2">
+
+            <button type="submit" class="btn btn-warning">{{ 'actions.search'|trans }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-4">
+      <div class="float-right">
+        <a href="{{ path("create_invoice") }}" class="btn btn-success">{{ 'actions.create'|trans({ modelName: 'models.invoice.modelName.singular'|trans }) }}</a>
+      </div>
+    </div>
+  </div>
+
+  <table id=list class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th class="header {% if pagination.isSorted('invoice.createdAt')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.invoice.attributes.createdAt'|trans, 'invoice.createdAt') }}
+        </th>
+        <th class="header {% if pagination.isSorted('invoice.id')%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.invoice.attributes.id'|trans, 'invoice.id') }}
+        </th>
+        <th class="header {% if pagination.isSorted(['invoice.lastName', 'invoice.firstName'])%}sorted{% endif %}">
+          {{ knp_pagination_sortable(pagination, 'models.customer.name'|trans, ['invoice.lastName', 'invoice.firstName']) }}
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for invoice in pagination %}
+        <tr class='list-row'>
+          <td class='list-column'>{{ invoice.createdAt|format_datetime('medium', 'short') }}</td>
+          <td class='list-column'><a href="{{ path('edit_invoice', { 'id': invoice.id })}}">{{ 'models.invoice.modelName.singular'|trans ~ ' ' ~ invoice.id }}</a></td>
+          <td class='list-column'>{{ invoice.name }}</td>
+          {#
+          <td class='list-column'>{{ invoice.zipCode }}</td>
+          <td class='list-column'>{{ invoice.city }}</td>
+          <td class='list-column'>{{ invoice.phone }}</td>
+          <td class='list-column'>
+            {% if invoice.email %}
+              <a href="mailto:{{ invoice.email }}">{{ invoice.email }}</a>
+            {% endif %}
+          </td>
+          <td class='list-column'>{{ invoice.updatedAt|format_datetime('medium', 'short') }}</td>
+          #}
+          <td class='list-column'>
+            <form action="{{ path('delete_invoice', {"id": invoice.id}) }}" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger">{{ 'actions.delete'|trans }}</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+{% endblock %}

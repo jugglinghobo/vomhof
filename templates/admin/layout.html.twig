@@ -12,10 +12,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ url("products") }}">Produkte</a>
+          <a class="nav-link" href="{{ url("products") }}">{{ 'models.product.modelName.plural'|trans }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url("customers") }}">Kunden</a>
+          <a class="nav-link" href="{{ url("customers") }}">{{ 'models.customer.modelName.plural'|trans }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url("invoices") }}">{{ 'models.invoice.modelName.plural'|trans }}</a>
         </li>
       </ul>
     </div>

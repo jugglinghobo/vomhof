@@ -23,10 +23,22 @@ class CustomerRepository extends ServiceEntityRepository {
     return $this->findBy([], ['lastName' => 'ASC', 'firstName' => 'ASC']);
   }
 
+  public function getWithFirstLetterQueryBuilder(?string $letter): QueryBuilder {
+    $qb = $this->createQueryBuilder('customer');
+    if ($letter) {
+      $qb->andWhere('LOWER(customer.company) LIKE :term OR LOWER(customer.lastName) LIKE :term')
+         ->setParameter('term', $letter . '%')
+       ;
+    }
+    return $qb
+      ->orderBy('customer.lastName', 'ASC')
+    ;
+  }
+
   public function getWithSearchQueryBuilder(?string $term): QueryBuilder {
     $qb = $this->createQueryBuilder('customer');
     if ($term) {
-      $qb->andWhere('LOWER(customer.lastName) LIKE :term OR LOWER(customer.firstName) LIKE :term OR LOWER(customer.address1) LIKE :term OR LOWER(customer.zipCode) LIKE :term OR LOWER(customer.city) LIKE :term')
+      $qb->andWhere('LOWER(customer.company) LIKE :term OR LOWER(customer.lastName) LIKE :term OR LOWER(customer.firstName) LIKE :term OR LOWER(customer.address1) LIKE :term OR LOWER(customer.zipCode) LIKE :term OR LOWER(customer.city) LIKE :term')
          ->setParameter('term', '%' . $term . '%')
        ;
     }

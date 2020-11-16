@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CustomerRepository;
+use App\Repository\InvoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=CustomerRepository::class)
+ * @ORM\Entity(repositoryClass=InvoiceRepository::class)
  */
-class Customer {
+class Invoice {
 
   use TimestampableEntity;
 
@@ -68,19 +68,48 @@ class Customer {
 
   /**
    * @ORM\Column(type="string", length=255, nullable=true)
-   * @Assert\Email
    */
   private $email;
 
   /**
    * @ORM\Column(type="boolean")
    */
-  private $paysCash;
+  private $paidCash;
 
   /**
-   * @ORM\Column(type="boolean")
+   * @ORM\Column(type="decimal", precision=8, scale=2, options={"default": 0})
    */
-  private $pickUp;
+  private $cashDiscount;
+
+  /**
+   * @ORM\Column(type="decimal", precision=8, scale=2, options={"default": 0})
+   */
+  private $bulkDiscount;
+
+  /**
+   * @ORM\Column(type="integer", options={"default": 300})
+   */
+  private $bulkDiscountThreshold;
+
+  /**
+   * @ORM\Column(type="decimal", precision=8, scale=2, options={"default": 0})
+   */
+  private $springDiscount;
+
+  /**
+   * @ORM\Column(type="decimal", precision=8, scale=2)
+   */
+  private $vatPercentage;
+
+  /**
+   * @ORM\Column(type="decimal", precision=8, scale=2)
+   */
+  private $vatAmount;
+
+  /**
+   * @ORM\Column(type="decimal", precision=8, scale=2, options={"default": 0})
+   */
+  private $shippingCost;
 
   public function getId(): ?int
   {
@@ -204,28 +233,99 @@ class Customer {
     return $this;
   }
 
-  public function getPaysCash(): ?bool
+  public function getPaidCash(): ?bool
   {
-    return $this->paysCash;
+    return $this->paidCash;
   }
 
-  public function setPaysCash(bool $paysCash): self
+  public function setPaidCash(bool $paidCash): self
   {
-    $this->paysCash = $paysCash;
+    $this->paidCash = $paidCash;
 
     return $this;
   }
 
-  public function getPickUp(): ?bool
+  public function getCashDiscount(): ?string
   {
-    return $this->pickUp;
+    return $this->cashDiscount;
   }
 
-  public function setPickUp(bool $pickUp): self
+  public function setCashDiscount(string $cashDiscount): self
   {
-    $this->pickUp = $pickUp;
+    $this->cashDiscount = $cashDiscount;
 
     return $this;
   }
 
+  public function getBulkDiscount(): ?string
+  {
+    return $this->bulkDiscount;
+  }
+
+  public function setBulkDiscount(string $bulkDiscount): self
+  {
+    $this->bulkDiscount = $bulkDiscount;
+
+    return $this;
+  }
+
+  public function getBulkDiscountThreshold(): ?int
+  {
+    return $this->bulkDiscountThreshold;
+  }
+
+  public function setBulkDiscountThreshold(int $bulkDiscountThreshold): self
+  {
+    $this->bulkDiscountThreshold = $bulkDiscountThreshold;
+
+    return $this;
+  }
+
+  public function getSpringDiscount(): ?string
+  {
+    return $this->springDiscount;
+  }
+
+  public function setSpringDiscount(string $springDiscount): self
+  {
+    $this->springDiscount = $springDiscount;
+
+    return $this;
+  }
+
+  public function getVatPercentage(): ?string
+  {
+    return $this->vatPercentage;
+  }
+
+  public function setVatPercentage(string $vatPercentage): self
+  {
+    $this->vatPercentage = $vatPercentage;
+
+    return $this;
+  }
+
+  public function getVatAmount(): ?string
+  {
+    return $this->vatAmount;
+  }
+
+  public function setVatAmount(string $vatAmount): self
+  {
+    $this->vatAmount = $vatAmount;
+
+    return $this;
+  }
+
+  public function getShippingCost(): ?string
+  {
+    return $this->shippingCost;
+  }
+
+  public function setShippingCost(string $shippingCost): self
+  {
+    $this->shippingCost = $shippingCost;
+
+    return $this;
+  }
 }
