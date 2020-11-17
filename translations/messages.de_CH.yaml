@@ -1,7 +1,7 @@
 actions:
   all: Alle
-  create: modelName erstellen
-  edit: modelName bearbeiten
+  create: '%modelName% erstellen'
+  edit: '%modelName% bearbeiten'
   save: Speichern
   cancel: Abbrechen
   delete: Löschen
@@ -69,8 +69,8 @@ view:
   invoices:
     form:
       orderQuantity: Bestellmenge
-      price: Preis currency
-      totalPrice: Total currency
+      price: Preis %currency%
+      totalPrice: Total %currency%
       bulkDiscount: Mengenrabatt ab
       springDiscount: Frühlingsrabatt
       vat: MwSt.

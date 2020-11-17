@@ -2,15 +2,18 @@
 
 namespace App\Form;
 
-use App\Entity\Invoice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Shapecode\Bundle\HiddenEntityTypeBundle\Form\Type\HiddenEntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use App\Entity\Invoice;
+use App\Entity\Customer;
 
 class InvoiceType extends AbstractType {
 
@@ -18,6 +21,9 @@ class InvoiceType extends AbstractType {
     $user = $options['user'];
 
     $builder
+      ->add('customer', HiddenEntityType::class, [
+        'class' => Customer::class,
+      ])
       ->add('firstName', TextType::class, [
         'label' => 'models.invoice.attributes.firstName'
       ])

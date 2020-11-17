@@ -1,0 +1,5 @@
+{% extends 'admin/invoices/form.html.twig' %}
+
+{% block header %}
+  {{ 'actions.edit'|trans({'%modelName%': 'models.invoice.modelName.singular'|trans}) }}
+{% endblock %}

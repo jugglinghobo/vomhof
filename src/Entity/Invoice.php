@@ -111,6 +111,12 @@ class Invoice {
    */
   private $shippingCost;
 
+  /**
+   * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="invoices")
+   * @ORM\JoinColumn(nullable=false)
+   */
+  private $customer;
+
   public function getId(): ?int
   {
     return $this->id;
@@ -327,5 +333,17 @@ class Invoice {
     $this->shippingCost = $shippingCost;
 
     return $this;
+  }
+
+  public function getCustomer(): ?Customer
+  {
+      return $this->customer;
+  }
+
+  public function setCustomer(?Customer $customer): self
+  {
+      $this->customer = $customer;
+
+      return $this;
   }
 }

@@ -147,6 +147,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "shapecode/hidden-entity-type-bundle": {
+        "version": "4.2.0"
+    },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
         "recipe": {
@@ -457,5 +460,8 @@
     },
     "webimpress/safe-writer": {
         "version": "2.1.0"
+    },
+    "webmozart/assert": {
+        "version": "1.9.1"
     }
 }

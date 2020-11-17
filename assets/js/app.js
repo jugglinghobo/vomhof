@@ -5,3 +5,6 @@ require('bootstrap');
 
 // or you can include specific pieces
 require('./lightbox');
+
+// disable autocomplete globally
+$('input[type="text"]').attr('autocomplete', 'off');

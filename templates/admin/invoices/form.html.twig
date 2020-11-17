@@ -32,6 +32,7 @@
             </div>
             <!-- // TODO -->
             <!-- <%= f.hidden_field :customer_id %> -->
+            {{ form_row(form.customer, { 'label_attr': { 'class': 'col-sm-4' }}) }}
             {{ form_row(form.lastName, { 'label_attr': { 'class': 'col-sm-4' }}) }}
             {{ form_row(form.firstName, { 'label_attr': { 'class': 'col-sm-4' }}) }}
             {{ form_row(form.company, { 'label_attr': { 'class': 'col-sm-4' }}) }}
@@ -64,8 +65,8 @@
               <th class="col-md-1 identifier">{{ 'models.invoice.attributes.id'|trans }}</th>
               <th class="col-md-4 name">{{ 'models.customer.name'|trans }}</th>
               <th class="col-md-1 quantity text-right">{{ 'view.invoices.form.orderQuantity'|trans }}</th>
-              <th class="col-md-2 price text-right">{{ 'view.invoices.form.price'|trans({currency: 'CHF'}) }}</th>
-              <th class="col-md-2 total-price text-right">{{ 'view.invoices.form.totalPrice'|trans({currency: 'CHF'}) }}</th>
+              <th class="col-md-2 price text-right">{{ 'view.invoices.form.price'|trans({'%currency%': 'CHF'}) }}</th>
+              <th class="col-md-2 total-price text-right">{{ 'view.invoices.form.totalPrice'|trans({'%currency%': 'CHF'}) }}</th>
             </tr>
           </thead>
           <!--   <tbody class="order-items" id="order-items"> -->

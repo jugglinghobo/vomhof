@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fbacbaa2bdc6aad52026d90eda48298",
+    "content-hash": "fdd84bdfef14b68bbcf6927a8dfe68a6",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2100,6 +2100,89 @@
                 "controllers"
             ],
             "time": "2020-08-25T19:10:18+00:00"
+        },
+        {
+            "name": "shapecode/hidden-entity-type-bundle",
+            "version": "4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shapecode/hidden-entity-type-bundle.git",
+                "reference": "ce83276e4f9387d75c7082934e426ae4e998f26a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shapecode/hidden-entity-type-bundle/zipball/ce83276e4f9387d75c7082934e426ae4e998f26a",
+                "reference": "ce83276e4f9387d75c7082934e426ae4e998f26a",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/persistence": "^1.3|^2.0",
+                "php": "^7.4",
+                "symfony/config": "^3.4|^4.4|^5.0",
+                "symfony/dependency-injection": "^3.4|^4.4|^5.0",
+                "symfony/form": "^3.4|^4.4|^5.0",
+                "symfony/framework-bundle": "^3.4|^4.4|^5.0",
+                "symfony/http-kernel": "^3.4|^4.4|^5.0",
+                "symfony/options-resolver": "^3.4|^4.4|^5.0",
+                "symfony/property-access": "^3.4|^4.4|^5.0",
+                "symfony/property-info": "^3.4|^4.4|^5.0",
+                "symfony/yaml": "^3.4|^4.4|^5.0",
+                "webmozart/assert": "^1.9"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^8.2",
+                "icanhazstring/composer-unused": "~0.7",
+                "maglnet/composer-require-checker": "^2.0",
+                "phpstan/phpstan": "~0.12",
+                "phpstan/phpstan-deprecation-rules": "~0.12",
+                "phpstan/phpstan-phpunit": "~0.12",
+                "phpstan/phpstan-strict-rules": "~0.12",
+                "phpstan/phpstan-webmozart-assert": "~0.12",
+                "phpunit/phpunit": "^9.2",
+                "roave/security-advisories": "dev-master",
+                "squizlabs/php_codesniffer": "^3.5",
+                "symfony/var-dumper": "^4.4|^5.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                },
+                "unused": [
+                    "symfony/framework-bundle"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "Shapecode\\Bundle\\HiddenEntityTypeBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Loges",
+                    "email": "dev@loges.one",
+                    "homepage": "https://loges.one"
+                },
+                {
+                    "name": "Glifery",
+                    "email": "glifery@gmail.com"
+                }
+            ],
+            "description": "Hidden field for Symfony entities",
+            "homepage": "https://github.com/shapecode/hidden-entity-type-bundle",
+            "keywords": [
+                "entity",
+                "form",
+                "hidden",
+                "shapecode",
+                "symfony",
+                "type"
+            ],
+            "time": "2020-11-09T09:52:29+00:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -5767,6 +5850,55 @@
                 "webimpress"
             ],
             "time": "2020-08-25T07:21:11+00:00"
+        },
+        {
+            "name": "webmozart/assert",
+            "version": "1.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozart/assert.git",
+                "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0 || ^8.0",
+                "symfony/polyfill-ctype": "^1.8"
+            },
+            "conflict": {
+                "phpstan/phpstan": "<0.12.20",
+                "vimeo/psalm": "<3.9.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.36 || ^7.5.13"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Webmozart\\Assert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "Assertions to validate method input/output with nice error messages.",
+            "keywords": [
+                "assert",
+                "check",
+                "validate"
+            ],
+            "time": "2020-07-08T17:02:28+00:00"
         }
     ],
     "packages-dev": [

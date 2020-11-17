@@ -1,7 +1,7 @@
 {% extends 'admin/base_form.html.twig' %}
 
 {% block header %}
-  {{ 'actions.create'|trans({modelName: 'models.product.modelName.singular'|trans}) }}
+  {{ 'actions.create'|trans({ '%modelName%': 'models.product.modelName.singular'|trans}) }}
 {% endblock %}
 
 {% block form %}

@@ -28,7 +28,7 @@
     </div>
     <div class="col-4">
       <div class="float-right">
-        <a href="{{ path("create_customer") }}" class="btn btn-success">{{ 'actions.create'|trans({ modelName: 'models.customer.modelName.singular'|trans }) }}</a>
+        <a href="{{ path("create_customer") }}" class="btn btn-success">{{ 'actions.create'|trans({ '%modelName%': 'models.customer.modelName.singular'|trans }) }}</a>
       </div>
     </div>
   </div>

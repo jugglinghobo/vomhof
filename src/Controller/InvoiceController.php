@@ -62,7 +62,7 @@ class InvoiceController extends AbstractController {
    * @Route("/admin/invoices/{id}", name="edit_invoice", requirements={"id":"\d+"}, methods={"GET", "POST"})
    */
   public function edit(Invoice $invoice, Request $request) {
-    $form = $this->createForm(InvoiceType::class, $invoice);
+    $form = $this->createForm(InvoiceType::class, $invoice, ['user' => $this->getUser()]);
 
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -70,6 +70,7 @@ class InvoiceController extends AbstractController {
     }
 
     return $this->render("admin/invoices/edit.html.twig", [
+      "user" => $this->getUser(),
       "form" => $form->createView()
     ]);
   }

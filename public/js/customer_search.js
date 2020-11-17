@@ -39,8 +39,7 @@
   var fillCustomerInfo = function() {
     hideCustomerResultContainer();
     var customer = JSON.parse(atob($(this).data('customer')));
-    // TODO: add customer relation
-    // $("#order_customer_id").val(customer.id);
+    $("#invoice_customer").val(customer.id);
     $("#invoice_firstName").val(customer.firstName);
     $("#invoice_lastName").val(customer.lastName);
     $("#invoice_company").val(customer.company);
