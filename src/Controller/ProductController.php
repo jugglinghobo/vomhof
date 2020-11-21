@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 use App\Form\ProductType;
 use App\Entity\Product;
@@ -36,6 +40,25 @@ class ProductController extends AbstractController {
       "pagination" => $pagination,
       "lastQuery" => $q
     ]);
+  }
+
+  /**
+   * @Route("/admin/products/search", name="product_search", methods="GET")
+   */
+  public function search(EntityManagerInterface $entityManager, Request $request) {
+    $repository = $entityManager->getRepository(Product::class);
+    $q = $request->query->get('q');
+    $queryBuilder = $repository->getWithSearchQueryBuilder($q);
+    $products = $queryBuilder->getQuery()->getResult();
+
+    $encoders = [new JsonEncoder()];
+    $normalizers = [new ObjectNormalizer()];
+    $serializer = new Serializer($normalizers, $encoders);
+    $jsonCustomers = $serializer->serialize($products, 'json');
+
+    $response = new JsonResponse();
+    $response->setData($jsonCustomers);
+    return $response;
   }
 
   /**

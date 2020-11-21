@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InvoiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,6 +15,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Invoice {
 
   use TimestampableEntity;
+
+  public function __toString() {
+    return "Invoice" . $this->getId();
+  }
 
   /**
    * @ORM\Id
@@ -116,6 +122,16 @@ class Invoice {
    * @ORM\JoinColumn(nullable=false)
    */
   private $customer;
+
+  /**
+   * @ORM\OneToMany(targetEntity=InvoiceItem::class, mappedBy="invoice", orphanRemoval=true)
+   */
+  private $invoiceItems;
+
+  public function __construct()
+  {
+      $this->invoiceItems = new ArrayCollection();
+  }
 
   public function getId(): ?int
   {
@@ -343,6 +359,36 @@ class Invoice {
   public function setCustomer(?Customer $customer): self
   {
       $this->customer = $customer;
+
+      return $this;
+  }
+
+  /**
+   * @return Collection|InvoiceItem[]
+   */
+  public function getInvoiceItems(): Collection
+  {
+      return $this->invoiceItems;
+  }
+
+  public function addInvoiceItem(InvoiceItem $invoiceItem): self
+  {
+      if (!$this->invoiceItems->contains($invoiceItem)) {
+          $this->invoiceItems[] = $invoiceItem;
+          $invoiceItem->setInvoice($this);
+      }
+
+      return $this;
+  }
+
+  public function removeInvoiceItem(InvoiceItem $invoiceItem): self
+  {
+      if ($this->invoiceItems->removeElement($invoiceItem)) {
+          // set the owning side to null (unless already changed)
+          if ($invoiceItem->getInvoice() === $this) {
+              $invoiceItem->setInvoice(null);
+          }
+      }
 
       return $this;
   }

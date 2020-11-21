@@ -8,11 +8,13 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Shapecode\Bundle\HiddenEntityTypeBundle\Form\Type\HiddenEntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use App\Entity\Invoice;
+use App\Entity\InvoiceItem;
 use App\Entity\Customer;
 
 class InvoiceType extends AbstractType {
@@ -25,32 +27,51 @@ class InvoiceType extends AbstractType {
         'class' => Customer::class,
       ])
       ->add('firstName', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.firstName'
       ])
       ->add('lastName', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.lastName'
       ])
       ->add('company', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.company'
       ])
       ->add('address1', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.address1'
       ])
       ->add('address2', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.address2'
       ])
       ->add('zipCode', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.zipCode'
       ])
       ->add('city', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.city'
       ])
       ->add('phone', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.phone'
       ])
       ->add('email', TextType::class, [
+        'block_name' => 'address',
         'label' => 'models.invoice.attributes.email'
       ])
+
+      ->add('invoiceItems', CollectionType::class, [
+        'label' => false,
+        'entry_type' => InvoiceItemType::class,
+        'entry_options' => [ 'label' => false ],
+        'allow_add' => true,
+        'allow_delete' => true,
+      ])
+
+
       ->add('paidCash', CheckboxType::class, [
         'label' => 'models.invoice.attributes.cashDiscount',
         'label_translation_parameters' => [

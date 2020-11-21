@@ -19,7 +19,7 @@
   }
 
   var renderCustomerSearchResults = function(results, status) {
-    results = JSON.parse(results);
+    var results = JSON.parse(results);
     var resultContent = "";
     if (results.length > 0) {
       for(result_index in results) {

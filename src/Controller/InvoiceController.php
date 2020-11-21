@@ -11,6 +11,8 @@ use Knp\Component\Pager\PaginatorInterface;
 
 use App\Form\InvoiceType;
 use App\Entity\Invoice;
+use App\Entity\InvoiceItem;
+use App\Entity\Product;
 use App\Entity\User;
 
 /**
@@ -41,9 +43,16 @@ class InvoiceController extends AbstractController {
   /**
    * @Route("/admin/invoices/new", name="create_invoice", methods={"GET", "POST"})
    */
-  public function new(Request $request) {
+  public function new(EntityManagerInterface $em, Request $request) {
+    $repo = $em->getRepository(Product::class);
+    $products = $repo->findAll();
     $invoice = new Invoice();
     $invoice = $this->setDefaultValues($invoice, $this->getUser());
+    foreach ($products as $product) {
+      $invoiceItem = new InvoiceItem();
+      $invoiceItem->setProduct($product);
+      $invoice->addInvoiceItem($invoiceItem);
+    }
 
     $form = $this->createForm(InvoiceType::class, $invoice, ['user' => $this->getUser()]);
 

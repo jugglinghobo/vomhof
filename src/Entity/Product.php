@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,6 +15,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Product {
 
   use TimestampableEntity;
+
+  public function __toString() {
+    return $this->getIdentifier() . ' ' . $this->getName();
+  }
 
   /**
    * @ORM\Id
@@ -39,6 +45,16 @@ class Product {
    * @Assert\NotBlank
    */
   private $price;
+
+  /**
+   * @ORM\OneToMany(targetEntity=InvoiceItem::class, mappedBy="product")
+   */
+  private $invoiceItems;
+
+  public function __construct()
+  {
+      $this->invoiceItems = new ArrayCollection();
+  }
 
   public function getId(): ?int
   {
@@ -79,5 +95,35 @@ class Product {
     $this->identifier = $identifier;
 
     return $this;
+  }
+
+  /**
+   * @return Collection|InvoiceItem[]
+   */
+  public function getInvoiceItems(): Collection
+  {
+      return $this->invoiceItems;
+  }
+
+  public function addInvoiceItem(InvoiceItem $invoiceItem): self
+  {
+      if (!$this->invoiceItems->contains($invoiceItem)) {
+          $this->invoiceItems[] = $invoiceItem;
+          $invoiceItem->setProduct($this);
+      }
+
+      return $this;
+  }
+
+  public function removeInvoiceItem(InvoiceItem $invoiceItem): self
+  {
+      if ($this->invoiceItems->removeElement($invoiceItem)) {
+          // set the owning side to null (unless already changed)
+          if ($invoiceItem->getProduct() === $this) {
+              $invoiceItem->setProduct(null);
+          }
+      }
+
+      return $this;
   }
 }

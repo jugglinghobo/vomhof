@@ -12,6 +12,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
+          <a class="nav-link" href="{{ url("create_invoice") }}">{{ 'actions.create'|trans({'%modelName%': 'models.invoice.modelName.singular'|trans}) }}</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{{ url("products") }}">{{ 'models.product.modelName.plural'|trans }}</a>
         </li>
         <li class="nav-item">

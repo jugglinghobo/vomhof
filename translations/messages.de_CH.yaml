@@ -65,6 +65,13 @@ models:
       shippingCost: Versandkosten
       createdAt: Erstellt Am
       updatedAt: Geändert Am
+  invoiceItem:
+    modelName:
+      singular: Rechnungsposition
+      plural: Rechnungspositionen
+    attributes:
+      quantity: Menge
+      price: Preis
 view:
   invoices:
     form:
